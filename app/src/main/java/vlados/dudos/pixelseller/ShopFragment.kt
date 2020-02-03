@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.view.menu.MenuView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,13 +22,14 @@ import kotlinx.android.synthetic.main.shop_view.view.*
 class ShopFragment : Fragment() {
 
 
-
     fun isHeader1(position: Int): Boolean {
         return position == 0
     }
+
     fun isHeader2(position: Int): Boolean {
         return position == 4
     }
+
     fun isHeader3(position: Int): Boolean {
         return position == 8
     }
@@ -62,19 +64,15 @@ class ShopFragment : Fragment() {
                 g.entries.forEach {
                     phones.addAll(it.value)
                 }
-                phones.add( 0,CategoryHeader("Phones"))
+                phones.add(0, CategoryHeader("Phones"))
                 phones.add(4, CategoryHeader("TV"))
-                phones.add( 8,CategoryHeader("PC"))
+                phones.add(8, CategoryHeader("PC"))
                 rv2.adapter = ShopAdapter(phones) { item ->
                     toShopProfile(item)
                 }
             }, {})
 
         return asd
-
-    }
-
-    private fun filter(view: View){
 
     }
 
@@ -117,6 +115,7 @@ class ShopFragment : Fragment() {
             }
             return item
         }
+
         override fun getItemViewType(position: Int): Int {
             return when (list[position]) {
                 is ShopResponce -> shopItem
@@ -143,7 +142,6 @@ class ShopView(view: View, private val onClick: (ShopResponce) -> Unit) :
             }
         }
     }
-
 }
 
 class Header(
@@ -162,6 +160,5 @@ abstract class CommonViewHolder<T : ItemView>(
 ) : RecyclerView.ViewHolder(view) {
     abstract fun bind(model: T)
 }
-
 
 

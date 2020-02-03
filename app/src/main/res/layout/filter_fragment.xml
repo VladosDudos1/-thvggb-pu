@@ -25,7 +25,7 @@
                 android:textSize="22dp" />
 
             <ImageButton
-                android:id="@+id/filter_btn"
+                android:id="@+id/filter_btn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -40,7 +40,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvS"
+        android:id="@+id/rvFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
