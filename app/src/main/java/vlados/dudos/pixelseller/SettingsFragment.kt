@@ -5,18 +5,13 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.afollestad.materialdialogs.MaterialDialog
@@ -24,8 +19,6 @@ import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import kotlinx.android.synthetic.main.settings_fragment.*
 import java.lang.Exception
 import android.os.Environment.getExternalStorageDirectory
-import androidx.core.app.ActivityCompat.getExternalFilesDirs
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import java.io.File
@@ -41,12 +34,14 @@ class SettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.settings_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        privacy_layout.setOnClickListener(this::hack)
 
         if (ContextCompat.checkSelfPermission(
                 requireActivity(),
@@ -141,6 +136,19 @@ class SettingsFragment : Fragment() {
             shared.value.edit().putString("photo_path",file.absolutePath).apply()
         }
 
+    }
+
+
+    fun hack(view: View){
+        MaterialDialog(requireActivity())
+            .title(text = "Accept the rules")
+            .listItemsSingleChoice(items = listOf("Accept", "No"), selection = { dialog, index, text ->
+                if (index == 0 ){
+                    MaterialDialog(requireActivity())
+                        .title(text = "You was hacked")
+                        .show {  }
+                } else {dialog.cancel()}
+            }) .show {  }
     }
 
     companion object {
