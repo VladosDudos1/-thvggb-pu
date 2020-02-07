@@ -6,6 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import vlados.dudos.pixelseller.CategoryResponse
 import vlados.dudos.pixelseller.ShopResponce
 
 interface Api {
@@ -14,7 +15,8 @@ interface Api {
     fun phones(): io.reactivex.Observable<List<ShopResponce>>
 
     @GET("/goods")
-    fun category(): io.reactivex.Observable<List<ShopResponce>>
+    fun category(): io.reactivex.Observable<List<CategoryResponse>>
+
 
 
     companion object {

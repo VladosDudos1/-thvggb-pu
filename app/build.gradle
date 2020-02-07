@@ -61,4 +61,7 @@ dependencies {
 
     implementation 'com.hannesdorfmann:adapterdelegates4:4.2.0'
 
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
 }

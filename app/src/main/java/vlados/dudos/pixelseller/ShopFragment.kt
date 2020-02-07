@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +13,8 @@ import com.bumptech.glide.Glide
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.row_header.view.*
-import kotlinx.android.synthetic.main.shop_fragment.*
-import vlados.dudos.pixelseller.ItemView
 import kotlinx.android.synthetic.main.shop_view.view.*
+
 
 class ShopFragment : Fragment() {
 
@@ -51,8 +48,16 @@ class ShopFragment : Fragment() {
             }
         }
         rv2.layoutManager = gridLayoutManager
-        val aasd = App.dm.api
+        val disp = App.dm.api
             .phones()
+//        val alphabets1 = Observable
+//            .interval(1, TimeUnit.SECONDS).map { id -> "A$id" }
+//
+//        val alphabets2 = Observable
+//            .interval(1, TimeUnit.SECONDS).map { id -> "B$id" }
+//
+//        Observable.zip(alphabets1, alphabets2,
+//            BiFunction<ShopResponce, CategoryResponse, > { s, s2 -> "$s $s2" })
             .map {
                 it.forEachIndexed { index, shopResponce -> shopResponce.id = index }
                 return@map it.groupBy { it.categoryCode }
@@ -71,26 +76,20 @@ class ShopFragment : Fragment() {
                     toShopProfile(item)
                 }
             }, {})
-
         return asd
-
     }
-
     private fun toShopProfile(shop: ShopResponce) {
         ShopModelWrapper.shopResponce = shop
         startActivity(Intent(PhoneActivity.newIntent(requireActivity(), shop)))
     }
-
-    inner class ShopAdapter(
+     class ShopAdapter(
         private val list: List<ItemView>,
         private val onClick: (ShopResponce) -> Unit
     ) :
         BaseAdapter<ItemView, CommonViewHolder<ItemView>>() {
-
         override val dataList: List<ItemView> = list
         private val shopItem = 1
         private val headerItem = 2
-
 
         override fun onCreateViewHolder(
             parent: ViewGroup,
@@ -115,7 +114,6 @@ class ShopFragment : Fragment() {
             }
             return item
         }
-
         override fun getItemViewType(position: Int): Int {
             return when (list[position]) {
                 is ShopResponce -> shopItem
@@ -147,7 +145,6 @@ class ShopView(view: View, private val onClick: (ShopResponce) -> Unit) :
 class Header(
     view: View
 ) : CommonViewHolder<CategoryHeader>(view) {
-
     override fun bind(model: CategoryHeader) {
         itemView.row_header_text.text = model.title
 
@@ -159,6 +156,8 @@ abstract class CommonViewHolder<T : ItemView>(
     view: View
 ) : RecyclerView.ViewHolder(view) {
     abstract fun bind(model: T)
+
 }
+
 
 
