@@ -19,8 +19,4 @@ data class ShopResponce(
     var id:Int
 ) : Parcelable, ItemView
 
-data class CategoryHeader(
-    val title: String
-): ItemView
-
 interface ItemView
